@@ -52,6 +52,7 @@ services:
       - postgres
     profiles:
       - tools
+      - debug
 
 volumes:
   postgres_data:
