@@ -1,6 +1,39 @@
-version: '3.8'
-
 services:
+  backend:
+    build: 
+      context: ./backend
+      dockerfile: docker/${BACKEND_DOCKER_FILE}
+    container_name: challenge-backend
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./backend/.env
+    networks:
+      - challenge-network
+    volumes:
+      - ./backend/src:/backend/src
+      - ./backend/.mvn:/backend/.mvn
+      - ./backend/pom.xml:/backend/pom.xml
+      - ./backend/target:/backend/target
+      - maven-cache:/root/.m2
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: docker/${FRONTEND_DOCKER_FILE}
+    container_name: challenge-frontend
+    ports:
+      - "4200:${FRONTEND_CONTAINER_PORT}"
+    depends_on:
+      - backend
+    networks:
+      - challenge-network
+    volumes:
+      - ./frontend:/frontend
+      - '/frontend/node_modules'
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+
   postgres:
     image: postgres:15
     container_name: godlevel-db
@@ -18,6 +51,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - challenge-network
 
   data-generator:
     build:
@@ -37,7 +72,9 @@ services:
         python generate_data.py --db-url postgresql://challenge:challenge_2024@postgres:5432/challenge_db
       "
     profiles:
-      - tools
+      - initialization
+    networks:
+      - challenge-network
 
   pgadmin:
     image: dpage/pgadmin4:latest
@@ -51,9 +88,16 @@ services:
     depends_on:
       - postgres
     profiles:
-      - tools
+      - debug
+    networks:
+      - challenge-network
 
 volumes:
   postgres_data:
     driver: local
+  maven-cache:
+
+networks:
+  challenge-network:
+    driver: bridge
 

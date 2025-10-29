@@ -1,0 +1,12 @@
+FROM maven AS build
+
+WORKDIR /backend
+
+COPY .mvn/wrapper/maven-wrapper.properties /backend/.mvn/wrapper/maven-wrapper.properties
+COPY mvnw .
+
+EXPOSE 8080 35729
+
+RUN chmod +x mvnw
+
+CMD ["./mvnw", "spring-boot:run"]
