@@ -2,7 +2,7 @@ services:
   backend:
     build: 
       context: ./backend
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/${BACKEND_DOCKER_FILE}
     container_name: challenge-backend
     ports:
       - "8080:8080"
@@ -10,6 +10,12 @@ services:
       - ./backend/.env
     networks:
       - challenge-network
+    volumes:
+      - ./backend/src:/backend/src
+      - ./backend/.mvn:/backend/.mvn
+      - ./backend/pom.xml:/backend/pom.xml
+      - ./backend/target:/backend/target
+      - maven-cache:/root/.m2
 
   frontend:
     build:
@@ -29,7 +35,7 @@ services:
     environment:
       POSTGRES_DB: challenge_db
       POSTGRES_USER: challenge
-      POSTGRES_PASSWORD: challenge_2025
+      POSTGRES_PASSWORD: challenge_2024
     ports:
       - "5432:5432"
     volumes:
@@ -84,6 +90,7 @@ services:
 volumes:
   postgres_data:
     driver: local
+  maven-cache:
 
 networks:
   challenge-network:
