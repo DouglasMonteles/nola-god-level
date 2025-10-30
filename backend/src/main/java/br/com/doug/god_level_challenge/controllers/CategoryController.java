@@ -1,7 +1,7 @@
 package br.com.doug.god_level_challenge.controllers;
 
-import br.com.doug.god_level_challenge.models.SubBrand;
-import br.com.doug.god_level_challenge.services.SubBrandService;
+import br.com.doug.god_level_challenge.models.Category;
+import br.com.doug.god_level_challenge.services.CategoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(value = "/subBrands")
-public class SubBrandController {
+@RequestMapping(value = "/categories")
+public class CategoryController {
 
-    private final SubBrandService subBrandService;
+    private final CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity<Page<SubBrand>> findAll(Pageable pageable) {
-        var subBrands = subBrandService.findAll(pageable);
-        return ResponseEntity.ok().body(subBrands);
+    public ResponseEntity<Page<Category>> findAll(Pageable pageable) {
+        var categories = categoryService.findAll(pageable);
+        return ResponseEntity.ok().body(categories);
     }
 
 }
