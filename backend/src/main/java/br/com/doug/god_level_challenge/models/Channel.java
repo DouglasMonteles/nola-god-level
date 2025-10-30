@@ -36,6 +36,6 @@ public class Channel implements Serializable {
     private String name;
 
     @Column
-    private char type;
+    private Character type;
 
 }

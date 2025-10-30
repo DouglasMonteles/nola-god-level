@@ -8,13 +8,13 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "categories")
+@Table(name = "option_groups")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = { "id" })
 @ToString
-public class Category implements Serializable {
+public class OptionGroup implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -4148469735386674705L;
@@ -23,7 +23,7 @@ public class Category implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 200, nullable = false)
+    @Column(length = 500, nullable = false)
     private String name;
 
     @Column(length = 100)
@@ -40,5 +40,8 @@ public class Category implements Serializable {
 
     @Column
     private Long subBrandId;
+
+    @Column
+    private Long categoryId;
 
 }
