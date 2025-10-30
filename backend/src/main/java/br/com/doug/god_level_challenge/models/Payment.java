@@ -30,7 +30,7 @@ public class Payment implements Serializable {
     private String description;
 
     @Column
-    private boolean isOnline;
+    private Boolean isOnline;
 
     @Column
     private Long paymentTypeId;
