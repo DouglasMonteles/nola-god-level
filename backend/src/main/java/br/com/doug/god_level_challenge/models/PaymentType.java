@@ -22,9 +22,10 @@ public class PaymentType implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column
     private Integer brandId;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String description;
 
 }

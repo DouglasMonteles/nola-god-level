@@ -1,7 +1,7 @@
 package br.com.doug.god_level_challenge.controllers;
 
-import br.com.doug.god_level_challenge.models.PaymentType;
-import br.com.doug.god_level_challenge.services.PaymentTypeService;
+import br.com.doug.god_level_challenge.models.Payment;
+import br.com.doug.god_level_challenge.services.PaymentService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(value = "/paymentTypes")
-public class PaymentTypeController {
+@RequestMapping(value = "/payments")
+public class PaymentController {
 
-    private final PaymentTypeService paymentTypeService;
+    private final PaymentService paymentService;
 
     @GetMapping
-    public ResponseEntity<Page<PaymentType>> findAll(Pageable pageable) {
-        var paymentTypes = paymentTypeService.findAll(pageable);
-        return ResponseEntity.ok().body(paymentTypes);
+    public ResponseEntity<Page<Payment>> findAll(Pageable pageable) {
+        var payments = paymentService.findAll(pageable);
+        return ResponseEntity.ok().body(payments);
     }
 
 }
