@@ -23,8 +23,8 @@ public class Channel implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 10)
-    private String brandId;
+    @Column
+    private Long brandId;
 
     @Column
     private LocalDateTime createdAt;

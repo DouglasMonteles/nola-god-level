@@ -5,16 +5,16 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "payments")
+@Table(name = "sub_brands")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = { "id" })
 @ToString
-public class Payment implements Serializable {
+public class SubBrand implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -4148469735386674705L;
@@ -23,22 +23,13 @@ public class Payment implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 10)
-    private String currency;
-
-    @Column(length = 100)
-    private String description;
+    @Column(length = 255, nullable = false)
+    private String name;
 
     @Column
-    private boolean isOnline;
+    private LocalDateTime createdAt;
 
     @Column
-    private Long paymentTypeId;
-
-    @Column
-    private Long saleId;
-
-    @Column(precision = 10, scale = 2)
-    private BigDecimal value;
+    private Long brandId;
 
 }

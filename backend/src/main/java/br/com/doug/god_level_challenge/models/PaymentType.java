@@ -23,7 +23,7 @@ public class PaymentType implements Serializable {
     private Long id;
 
     @Column
-    private Integer brandId;
+    private Long brandId;
 
     @Column(nullable = false, length = 100)
     private String description;
