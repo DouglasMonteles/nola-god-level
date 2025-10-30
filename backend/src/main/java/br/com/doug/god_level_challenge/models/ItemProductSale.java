@@ -7,13 +7,13 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "item_item_product_sales")
+@Table(name = "item_product_sales")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = { "id" })
 @ToString
-public class ItemItemProductSale implements Serializable {
+public class ItemProductSale implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -4148469735386674705L;
@@ -21,15 +21,6 @@ public class ItemItemProductSale implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
-    private Long itemProductSaleId;
-
-    @Column(nullable = false)
-    private Long itemId;
-
-    @Column
-    private Long optionGroupId;
 
     @Column(nullable = false)
     private Float quantity;
@@ -40,6 +31,19 @@ public class ItemItemProductSale implements Serializable {
     @Column(nullable = false)
     private Float price;
 
+    @Column
     private Float amount;
+
+    @Column(length = 300)
+    private String observations;
+
+    @Column(nullable = false)
+    private Long productSaleId;
+
+    @Column(nullable = false)
+    private Long itemId;
+
+    @Column
+    private Long optionGroupId;
 
 }

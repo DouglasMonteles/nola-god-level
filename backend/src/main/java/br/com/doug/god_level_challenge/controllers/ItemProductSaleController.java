@@ -1,7 +1,7 @@
 package br.com.doug.god_level_challenge.controllers;
 
-import br.com.doug.god_level_challenge.models.ItemItemProductSale;
-import br.com.doug.god_level_challenge.services.ItemItemProductSaleService;
+import br.com.doug.god_level_challenge.models.ItemProductSale;
+import br.com.doug.god_level_challenge.services.ItemProductSaleService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(value = "/itemItemProductSales")
-public class ItemItemProductSaleController {
+@RequestMapping(value = "/itemProductSales")
+public class ItemProductSaleController {
 
-    private final ItemItemProductSaleService itemItemProductSaleService;
+    private final ItemProductSaleService itemProductSaleService;
 
     @GetMapping
-    public ResponseEntity<Page<ItemItemProductSale>> findAll(Pageable pageable) {
-        var itemsProductSales = itemItemProductSaleService.findAll(pageable);
+    public ResponseEntity<Page<ItemProductSale>> findAll(Pageable pageable) {
+        var itemsProductSales = itemProductSaleService.findAll(pageable);
         return ResponseEntity.ok().body(itemsProductSales);
     }
 
