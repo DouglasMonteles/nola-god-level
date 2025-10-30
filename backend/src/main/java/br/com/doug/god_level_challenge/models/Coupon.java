@@ -5,15 +5,17 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "brands")
+@Table(name = "coupons")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = { "id" })
 @ToString
-public class CouponSale implements Serializable {
+public class Coupon implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -4148469735386674705L;
@@ -22,19 +24,25 @@ public class CouponSale implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private Float value;
-
-    @Column(length = 100)
-    private String target;
-
-    @Column(length = 100)
-    private String sponsorship;
+    @Column(length = 50, nullable = false)
+    private String code;
 
     @Column
-    private Long saleId;
+    private Character discountType;
+
+    @Column(scale = 10, precision = 2)
+    private BigDecimal discountValue;
 
     @Column
-    private Long couponId;
+    private Boolean isActive;
+
+    @Column
+    private LocalDateTime validFrom;
+
+    @Column
+    private LocalDateTime validUntil;
+
+    @Column
+    private Long brandId;
 
 }
