@@ -1,7 +1,7 @@
 package br.com.doug.god_level_challenge.controllers;
 
-import br.com.doug.god_level_challenge.models.Costumer;
-import br.com.doug.god_level_challenge.services.CostumerService;
+import br.com.doug.god_level_challenge.models.Customer;
+import br.com.doug.god_level_challenge.services.CustomerService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,15 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping(value = "/costumers")
-public class CostumerController {
+@RequestMapping(value = "/customers")
+public class CustomerController {
 
-    private final CostumerService costumerService;
+    private final CustomerService customerService;
 
     @GetMapping
-    public ResponseEntity<Page<Costumer>> findAll(Pageable pageable) {
-        var costumers = costumerService.findAll(pageable);
-        return ResponseEntity.ok().body(costumers);
+    public ResponseEntity<Page<Customer>> findAll(Pageable pageable) {
+        var customers = customerService.findAll(pageable);
+        return ResponseEntity.ok().body(customers);
     }
 
 }

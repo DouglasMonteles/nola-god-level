@@ -1,5 +1,6 @@
 package br.com.doug.god_level_challenge.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -8,6 +9,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "stores")
@@ -73,5 +76,9 @@ public class Store implements Serializable {
 
     @Column
     private Long subBrandId;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "store")
+    private List<Customer> customers = new ArrayList<>();
 
 }

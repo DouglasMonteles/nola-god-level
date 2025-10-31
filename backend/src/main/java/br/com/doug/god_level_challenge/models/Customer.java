@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @EqualsAndHashCode(of = { "id" })
 @ToString
-public class Costumer implements Serializable {
+public class Customer implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -4148469735386674705L;
@@ -30,8 +30,8 @@ public class Costumer implements Serializable {
     @Column(length = 100)
     private String cpf;
 
-    @Column(length = 100)
-    private String costumerName;
+    @Column(name = "costumer_name", length = 100)
+    private String customerName;
 
     @Column(length = 100)
     private String email;
@@ -57,10 +57,12 @@ public class Costumer implements Serializable {
     @Column
     private LocalDate birthDate;
 
-    @Column
-    private Long storeId;
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    private Store store;
 
-    @Column
-    private Long subBrandId;
+    @ManyToOne
+    @JoinColumn(name = "sub_brand_id")
+    private SubBrand subBrand;
 
 }
