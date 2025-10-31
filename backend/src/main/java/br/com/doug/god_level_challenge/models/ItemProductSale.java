@@ -40,14 +40,17 @@ public class ItemProductSale implements Serializable {
     @Column(length = 300)
     private String observations;
 
-    @Column(nullable = false)
-    private Long productSaleId;
+    @ManyToOne
+    @JoinColumn(name = "product_sale_id", nullable = false)
+    private ProductSale productSale;
 
-    @Column(nullable = false)
-    private Long itemId;
+    @ManyToOne
+    @JoinColumn(name = "item_id", nullable = false)
+    private Item item;
 
-    @Column
-    private Long optionGroupId;
+    @ManyToOne
+    @JoinColumn(name = "option_group_id")
+    private OptionGroup optionGroup;
 
     @JsonIgnore
     @OneToMany(mappedBy = "itemProductSale")

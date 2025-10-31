@@ -1,11 +1,14 @@
 package br.com.doug.god_level_challenge.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "option_groups")
@@ -45,5 +48,9 @@ public class OptionGroup implements Serializable {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "optionGroup")
+    private List<ItemProductSale> itemProductSales = new ArrayList<>();
 
 }
