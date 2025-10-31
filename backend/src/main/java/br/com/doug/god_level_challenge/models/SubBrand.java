@@ -29,7 +29,8 @@ public class SubBrand implements Serializable {
     @Column
     private LocalDateTime createdAt;
 
-    @Column
-    private Long brandId;
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
 }

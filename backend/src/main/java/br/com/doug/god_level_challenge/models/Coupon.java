@@ -42,7 +42,8 @@ public class Coupon implements Serializable {
     @Column
     private LocalDateTime validUntil;
 
-    @Column
-    private Long brandId;
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
 }

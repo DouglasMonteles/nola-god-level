@@ -67,8 +67,9 @@ public class Store implements Serializable {
     @Column
     private LocalDate creationDate;
 
-    @Column
-    private Long brandId;
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
     @Column
     private Long subBrandId;

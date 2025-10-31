@@ -24,9 +24,6 @@ public class Channel implements Serializable {
     private Long id;
 
     @Column
-    private Long brandId;
-
-    @Column
     private LocalDateTime createdAt;
 
     @Column(length = 255)
@@ -37,5 +34,9 @@ public class Channel implements Serializable {
 
     @Column
     private Character type;
+
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
 }

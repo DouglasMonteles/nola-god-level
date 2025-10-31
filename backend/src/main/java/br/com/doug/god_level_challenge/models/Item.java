@@ -1,5 +1,6 @@
 package br.com.doug.god_level_challenge.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -32,8 +33,9 @@ public class Item implements Serializable {
     @Column
     private LocalDateTime deletedAt;
 
-    @Column
-    private Long brandId;
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
     @Column
     private Long subBrandId;

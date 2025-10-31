@@ -22,10 +22,11 @@ public class PaymentType implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private Long brandId;
-
     @Column(nullable = false, length = 100)
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "brand_id")
+    private Brand brand;
 
 }

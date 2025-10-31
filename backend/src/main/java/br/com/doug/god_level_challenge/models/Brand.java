@@ -1,11 +1,14 @@
 package br.com.doug.god_level_challenge.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "brands")
@@ -28,5 +31,41 @@ public class Brand implements Serializable {
 
     @Column
     private LocalDateTime createdAt;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "brand")
+    private List<Coupon> coupons = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "brand")
+    private List<Item> items = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "brand")
+    private List<Product> products = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "brand")
+    private List<Category> categories = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "brand")
+    private List<SubBrand> subBrands = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "brand")
+    private List<OptionGroup> optionGroups = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "brand")
+    private List<Store> stores = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "brand")
+    private List<Channel> channels = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "brand")
+    private List<PaymentType> paymentTypes = new ArrayList<>();
 
 }
