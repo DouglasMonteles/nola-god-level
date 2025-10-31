@@ -78,8 +78,9 @@ public class Sale implements Serializable {
     @Column(nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = false)
-    private Long channelId;
+    @ManyToOne
+    @JoinColumn(name = "channel_id")
+    private Channel channel;
 
     @Column
     private Long customerId;
