@@ -98,4 +98,8 @@ public class Sale implements Serializable {
     @OneToMany(mappedBy = "couponSale")
     private List<CouponSale> coupons = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "sale")
+    private List<DeliveryAddress> deliveryAddresses = new ArrayList<>();
+
 }

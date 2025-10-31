@@ -58,10 +58,12 @@ public class DeliveryAddress implements Serializable {
     @Column
     private Float longitude;
 
-    @Column(nullable = false)
-    private Long saleId;
+    @ManyToOne
+    @JoinColumn(name = "sale_id")
+    private Sale sale;
 
-    @Column(length = 100)
-    private String deliverySaleId;
+    @ManyToOne
+    @JoinColumn(name = "delivery_sale_id")
+    private DeliverySale deliverySale;
 
 }
