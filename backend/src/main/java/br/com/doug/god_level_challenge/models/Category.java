@@ -1,11 +1,14 @@
 package br.com.doug.god_level_challenge.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "categories")
@@ -39,7 +42,20 @@ public class Category implements Serializable {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    @Column
-    private Long subBrandId;
+    @ManyToOne
+    @JoinColumn(name = "sub_brand_id")
+    private SubBrand subBrand;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "category")
+    private List<Item> items = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "category")
+    private List<Product> products = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "category")
+    private List<OptionGroup> optionGroups = new ArrayList<>();
 
 }

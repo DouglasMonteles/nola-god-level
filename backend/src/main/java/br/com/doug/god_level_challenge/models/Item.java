@@ -40,7 +40,8 @@ public class Item implements Serializable {
     @Column
     private Long subBrandId;
 
-    @Column
-    private Long categoryId;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
 }
