@@ -31,10 +31,12 @@ public class CouponSale implements Serializable {
     @Column(length = 100)
     private String sponsorship;
 
-    @Column
-    private Long saleId;
+    @ManyToOne
+    @JoinColumn(name = "sale_id")
+    private Sale sale;
 
-    @Column
-    private Long couponId;
+    @ManyToOne
+    @JoinColumn(name = "coupon_id")
+    private Coupon coupon;
 
 }
