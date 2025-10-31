@@ -32,12 +32,6 @@ public class Payment implements Serializable {
     @Column
     private Boolean isOnline;
 
-    @Column
-    private Long paymentTypeId;
-
-    @Column
-    private Long saleId;
-
     @Column(precision = 10, scale = 2)
     private BigDecimal value;
 

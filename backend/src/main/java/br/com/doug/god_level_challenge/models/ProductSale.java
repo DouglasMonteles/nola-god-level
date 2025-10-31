@@ -38,11 +38,13 @@ public class ProductSale implements Serializable {
     @Column(length = 300)
     private String observations;
 
-    @Column(nullable = false)
-    private Long saleId;
+    @ManyToOne
+    @JoinColumn(name = "sale_id", nullable = false)
+    private Sale sale;
 
-    @Column(nullable = false)
-    private Long productId;
+    @ManyToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
     @JsonIgnore
     @OneToMany(mappedBy = "productSale")
