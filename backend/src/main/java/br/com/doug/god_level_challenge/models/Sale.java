@@ -95,7 +95,7 @@ public class Sale implements Serializable {
     private Long subBrandId;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "couponSale")
+    @OneToMany(mappedBy = "sale")
     private List<CouponSale> coupons = new ArrayList<>();
 
     @JsonIgnore
