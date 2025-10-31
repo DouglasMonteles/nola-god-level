@@ -36,8 +36,9 @@ public class Product implements Serializable {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    @Column
-    private Long subBrandId;
+    @ManyToOne
+    @JoinColumn(name = "sub_brand_id")
+    private SubBrand subBrand;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
