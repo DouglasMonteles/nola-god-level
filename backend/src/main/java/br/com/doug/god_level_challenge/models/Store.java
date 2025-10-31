@@ -81,4 +81,8 @@ public class Store implements Serializable {
     @OneToMany(mappedBy = "store")
     private List<Customer> customers = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "store")
+    private List<Sale> sales = new ArrayList<>();
+
 }

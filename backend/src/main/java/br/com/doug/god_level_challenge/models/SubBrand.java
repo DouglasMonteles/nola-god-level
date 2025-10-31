@@ -52,4 +52,8 @@ public class SubBrand implements Serializable {
     @OneToMany(mappedBy = "subBrand")
     private List<Product> products = new ArrayList<>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "subBrand")
+    private List<Sale> sales = new ArrayList<>();
+
 }

@@ -1,5 +1,6 @@
 package br.com.doug.god_level_challenge.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -7,6 +8,8 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "customers")
@@ -64,5 +67,9 @@ public class Customer implements Serializable {
     @ManyToOne
     @JoinColumn(name = "sub_brand_id")
     private SubBrand subBrand;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer")
+    private List<Sale> sales = new ArrayList<>();
 
 }

@@ -94,6 +94,18 @@ public class Sale implements Serializable {
     @Column
     private Long subBrandId;
 
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    @ManyToOne
+    @JoinColumn(name = "store_id")
+    private Store store;
+
+    @ManyToOne
+    @JoinColumn(name = "sub_brand_id")
+    private SubBrand subBrand;
+
     @JsonIgnore
     @OneToMany(mappedBy = "sale")
     private List<CouponSale> coupons = new ArrayList<>();
