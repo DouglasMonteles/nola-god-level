@@ -74,8 +74,9 @@ public class Store implements Serializable {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
-    @Column
-    private Long subBrandId;
+    @ManyToOne
+    @JoinColumn(name = "sub_brand_id")
+    private SubBrand subBrand;
 
     @JsonIgnore
     @OneToMany(mappedBy = "store")

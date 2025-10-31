@@ -85,15 +85,6 @@ public class Sale implements Serializable {
     @JoinColumn(name = "channel_id")
     private Channel channel;
 
-    @Column
-    private Long customerId;
-
-    @Column
-    private Long storeId;
-
-    @Column
-    private Long subBrandId;
-
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private Customer customer;
