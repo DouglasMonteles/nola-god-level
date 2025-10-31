@@ -41,4 +41,12 @@ public class Payment implements Serializable {
     @Column(precision = 10, scale = 2)
     private BigDecimal value;
 
+    @ManyToOne
+    @JoinColumn(name = "payment_type_id")
+    private PaymentType paymentType;
+
+    @ManyToOne
+    @JoinColumn(name = "sale_id")
+    private Sale sale;
+
 }

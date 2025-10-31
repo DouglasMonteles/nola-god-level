@@ -1,10 +1,13 @@
 package br.com.doug.god_level_challenge.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "payment_types")
@@ -28,5 +31,9 @@ public class PaymentType implements Serializable {
     @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "paymentType")
+    private List<Payment> payments = new ArrayList<>();
 
 }
