@@ -34,13 +34,15 @@ public class ItemItemProductSale implements Serializable {
     @Column
     private Float amount;
 
-    @Column(nullable = false)
-    private Long itemProductSaleId;
-
-    @Column(nullable = false)
-    private Long itemId;
-
     @Column
     private Long optionGroupId;
+
+    @ManyToOne
+    @JoinColumn(name = "item_product_sale_id", nullable = false)
+    private ItemProductSale itemProductSale;
+
+    @ManyToOne
+    @JoinColumn(name = "item_id", nullable = false)
+    private Item item;
 
 }

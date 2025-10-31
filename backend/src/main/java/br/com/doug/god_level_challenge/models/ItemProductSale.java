@@ -1,10 +1,13 @@
 package br.com.doug.god_level_challenge.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "item_product_sales")
@@ -45,5 +48,9 @@ public class ItemProductSale implements Serializable {
 
     @Column
     private Long optionGroupId;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "itemProductSale")
+    private List<ItemItemProductSale> itemItemProductSales = new ArrayList<>();
 
 }
