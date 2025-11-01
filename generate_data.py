@@ -301,7 +301,7 @@ def generate_customers(conn, num_customers=10000):
     
     execute_batch(cursor, """
         INSERT INTO customers (
-            customer_name, email, phone_number, cpf, birth_date, gender,
+            costumer_name, email, phone_number, cpf, birth_date, gender,
             agree_terms, receive_promotions_email, registration_origin, created_at
         ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
     """, batch, page_size=1000)
