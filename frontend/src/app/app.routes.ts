@@ -7,5 +7,5 @@ export const routes: Routes = [
     component: Welcome,
     pathMatch: "full",
     title: "welcome",
-  }
+  },
 ];
