@@ -5,6 +5,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { LocalStorageService } from '../../services/local-storage.service';
+import { LoggedUser } from '../../models/logged-user';
 
 @Component({
   selector: 'app-welcome',
@@ -25,7 +28,11 @@ export class Welcome {
 
   form: FormGroup;
 
-  constructor(private _formBuilder: FormBuilder) {
+  constructor(
+    private _formBuilder: FormBuilder,
+    private _route: Router,
+    private _localStorageService: LocalStorageService
+  ) {
     this.form = this._formBuilder.group({
       username: ['', [
         Validators.required,
@@ -62,7 +69,10 @@ export class Welcome {
   }
 
   handleLoginSubmit(): void {
-    console.log(this.form.controls['username'].errors)
+    if (!this.isFormInvalid()) {
+      this._localStorageService.save(LoggedUser.LOGGED_USER_KEY, new LoggedUser(this.form.value.username));
+      this._route.navigateByUrl("dashboard");
+    }
   }
 
 }
