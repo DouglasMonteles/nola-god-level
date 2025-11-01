@@ -1,10 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<databaseChangeLog
-        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
-    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
+--liquibase formatted sql
 
-    <include file="db/changelog/changes/v1.0.0/01-create-users-table.xml"/>
+--changeset liquibase:init-master
+--comment: Master changelog file
 
-</databaseChangeLog>
+--include file:db/changelog/changes/v1.0.0/01-create-initial-database.sql
+--include file:db/changelog/changes/v1.0.0/02-alter-table-stores-fix-latidude-longitude.sql
+--include file:db/changelog/changes/v1.0.0/03-alter-table-customers-rename-customer-name.sql
