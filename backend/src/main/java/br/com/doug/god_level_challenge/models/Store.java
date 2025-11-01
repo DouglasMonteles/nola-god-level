@@ -52,10 +52,10 @@ public class Store implements Serializable {
     @Column
     private Boolean isOwn;
 
-    @Column(scale = 9, precision = 6)
+    @Column(scale = 6, precision = 9)
     private BigDecimal latitude;
 
-    @Column(scale = 9, precision = 6)
+    @Column(scale = 6, precision = 9)
     private BigDecimal longitude;
 
     @Column(length = 2)

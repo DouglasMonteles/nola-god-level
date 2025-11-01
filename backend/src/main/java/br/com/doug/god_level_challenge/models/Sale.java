@@ -36,8 +36,8 @@ public class Sale implements Serializable {
     @Column(length = 100)
     private String customerName;
 
-    @Column(scale = 10, precision = 2)
-    private BigDecimal deliveryFree;
+    @Column(scale = 6, precision = 10)
+    private BigDecimal deliveryFee;
 
     @Column
     private Integer deliverySeconds;
@@ -60,22 +60,22 @@ public class Sale implements Serializable {
     @Column(length = 100, nullable = false)
     private String saleStatusDesc;
 
-    @Column(scale = 10, precision = 2)
+    @Column(precision = 10, scale = 2)
     private BigDecimal serviceTaxFee;
 
-    @Column(scale = 10, precision = 2, nullable = false)
+    @Column(precision = 10, scale = 2, nullable = false)
     private BigDecimal totalAmount;
 
-    @Column(scale = 10, precision = 2, nullable = false)
+    @Column(precision = 10, scale = 2, nullable = false)
     private BigDecimal totalAmountItems;
 
-    @Column(scale = 10, precision = 2)
+    @Column(precision = 10, scale = 2)
     private BigDecimal totalDiscount;
 
-    @Column(scale = 10, precision = 2)
+    @Column(precision = 10, scale = 2)
     private BigDecimal totalIncrease;
 
-    @Column(scale = 10, precision = 2)
+    @Column(precision = 10, scale = 2)
     private BigDecimal valuePaid;
 
     @Column(nullable = false)
