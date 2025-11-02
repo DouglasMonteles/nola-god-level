@@ -6,7 +6,10 @@ import { RouterModule } from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
-  imports: [NavContainerComponent, RouterModule],
+  imports: [
+    NavContainerComponent, 
+    RouterModule,
+  ],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })
