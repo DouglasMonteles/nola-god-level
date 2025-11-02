@@ -1,16 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { NgApexchartsModule } from "ng-apexcharts";
+import { MatTableModule } from '@angular/material/table';
+import { MatCardModule } from '@angular/material/card';
 
 import {
   ApexAxisChartSeries,
   ApexChart,
   ApexXAxis,
-  ApexTitleSubtitle
+  ApexTitleSubtitle,
 } from "ng-apexcharts";
 import { ProductService } from '../../../services/product.service';
-import { map } from 'rxjs';
-import { JsonPipe, NgClass } from '@angular/common';
 import { ProductSaleByPeriod } from '../../../models/product-sale-by-period';
+import { DatePipe, JsonPipe } from '@angular/common';
+import { SaleService } from '../../../services/sale.service';
+import SaleBasicInfo from '../../../models/sale-basic-info';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -22,13 +28,23 @@ export type ChartOptions = {
   title: ApexTitleSubtitle;
 };
 
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
+
 @Component({
   selector: 'app-default-reports',
   imports: [
     NgApexchartsModule,
-    JsonPipe,
-    NgClass
-],
+    MatTableModule,
+    DatePipe,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule
+  ],
   templateUrl: './default-reports.html',
   styleUrl: './default-reports.scss',
 })
@@ -36,28 +52,21 @@ export class DefaultReports implements OnInit {
 
   public chartOptions!: Partial<ChartOptions>;
 
-  products: ProductSaleByPeriod[] = [
-    
-  ];
+  products: ProductSaleByPeriod[] = [];
+
+  sale!: SaleBasicInfo;
+
+  displayedColumns: string[] = ['productId', 'productName', 'quantityOnSale', 'productQuantityTotalSales', 'createdAt', 'saleId'];
 
   constructor(
-    private _productService: ProductService
+    private _productService: ProductService,
+    private _saleService: SaleService,
+    private _formBuilder: FormBuilder,
   ) {
-
   }
 
   ngOnInit(): void {
     this._productService.quantityProductSaleByPeriod()
-      .pipe(map(response => {
-        const content = response.content.map(it => {
-          return {
-            ...it,
-            createdAt: this.formattedCreatedAt(it.createdAt)
-          };
-        })
-        response.content = content;
-        return response;
-      }))
       .subscribe({
         next: (data) => {
           console.log(data.content.map(it => it.quantityOnSale).reduce((prev, curr) => prev + curr, 0))
@@ -94,11 +103,19 @@ export class DefaultReports implements OnInit {
               }
             },
             xaxis: {
-              categories: data.content.map(it => it.createdAt),
+              categories: data.content
+                .map(it => it.createdAt)
+                .map(this.formattedCreatedAt),
             },
           };
         }
       });
+
+    this._saleService.findStoreById(1).subscribe({
+      next: (data) => {
+        this.sale = data;
+      }
+    });
   }
 
   formattedCreatedAt(createdAt: string): string {

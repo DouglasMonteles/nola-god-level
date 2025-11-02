@@ -16,7 +16,6 @@ export class ProductService {
       params: {
         page: 0,
         size: 30,
-        sort: "product_quantity_total_sales,desc",
         channelName: "iFood",
         initialDateTime: "2025-06-01T18:00:00",
         finalDateTime: "2025-06-01T23:00:00"
