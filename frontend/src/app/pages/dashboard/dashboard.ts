@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from '../../services/local-storage.service';
 import { LoggedUser } from '../../models/logged-user';
 import { NavContainerComponent } from "../../components/nav-container/nav-container.component";
+import { RouterModule } from "@angular/router";
 
 @Component({
   selector: 'app-dashboard',
-  imports: [NavContainerComponent],
+  imports: [NavContainerComponent, RouterModule],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss',
 })

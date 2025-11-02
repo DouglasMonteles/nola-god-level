@@ -3,6 +3,8 @@ import { Welcome } from './pages/welcome/welcome';
 import { Dashboard } from './pages/dashboard/dashboard';
 import { authGuard } from './guards/auth-guard';
 import { redirectToLoginGuard } from './guards/redirect-to-login-guard';
+import { ProductSaleByPeriod } from './pages/dashboard/product-sale-by-period/product-sale-by-period';
+import { DefaultReports } from './pages/dashboard/default-reports/default-reports';
 
 export const routes: Routes = [
   {
@@ -13,7 +15,6 @@ export const routes: Routes = [
   {
     path: "welcome",
     component: Welcome,
-    pathMatch: "full",
     title: "Welcome",
     canActivate: [
       authGuard
@@ -22,11 +23,22 @@ export const routes: Routes = [
   {
     path: "dashboard",
     component: Dashboard,
-    pathMatch: "full",
-    title: "Dashboard",
     canActivate: [
       redirectToLoginGuard
     ],
-  },
+    children: [
+      {
+        path: "",
+        component: DefaultReports,
+        title: "Dashboard",
+        pathMatch: "full",
+      },
+      {
+        path: "product-sale-by-period",
+        component: ProductSaleByPeriod,
+        title: "Produtos vendidos por período",
+      }
+    ]
+  }
 
 ];
