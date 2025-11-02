@@ -1,9 +1,29 @@
-<div style="text-align:center">
-  <apx-chart
-    #chart
-    [series]="chartOptions.series!"
-    [chart]="chartOptions.chart!"
-    [xaxis]="chartOptions.xaxis!"
-    [title]="chartOptions.title!"
-  ></apx-chart>
+<div class="px-8 w-full h-full">
+  <div class="shadow-md border-2 rounded-md">
+    @if (chartOptions) {
+      <apx-chart
+        [series]="chartOptions.series!"
+        [chart]="chartOptions.chart!"
+        [xaxis]="chartOptions.xaxis!"
+        [dataLabels]="chartOptions.dataLabels!"
+        [grid]="chartOptions.grid!"
+        [stroke]="chartOptions.stroke!"
+        [title]="chartOptions.title!"
+      ></apx-chart>
+    }
+  </div>
+
+  <div class="flex flex-col max-w-[16vw]">
+    @for (item of products; track $index) {
+      <div class="flex gap-8" [ngClass]="{
+        'bg-gray-400': $index % 2 == 0,
+        'bg-gray-100': $index % 2 != 0,
+      }">
+        <p>{{item.productId}}</p>
+        <p>{{item.productName}}</p>
+        <p>{{item.quantityOnSale}}</p>
+        <p>{{item.saleId}}</p>
+      </div>
+    }
+  </div>
 </div>
