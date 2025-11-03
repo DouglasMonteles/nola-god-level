@@ -4,6 +4,8 @@ FROM node:22-alpine AS build
 WORKDIR /frontend
 
 COPY package*.json ./
+COPY .postcssrc.json ./
+COPY tsconfig*.json ./
 
 RUN npm install -g @angular/cli && npm install
 

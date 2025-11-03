@@ -1,0 +1,59 @@
+<main class="flex items-center justify-center h-full">
+  <div class="flex items-center justify-center h-full flex-col   
+    md:flex-row">
+    <article class="flex flex-col justify-center items-center w-full lg:h-[30vh]  
+      md:w-[60vw] md:h-screen">
+      <img 
+        class="lg:w-[50vw] lg:h-[50vh] mb-20" 
+        src="/assets/login-background.png" 
+        alt="Imagem com pessoas apontando para um gráfico"
+      >
+      <h1 class="font-light text-2xl text-center px-24">
+        Empoderando quem faz delivery com dashboards intuitivos que transformam 
+        dados em decisões inteligentes e resultados melhores todos os dias.
+      </h1>
+    </article>
+
+    <aside class="mt-24 md:mt-0 flex justify-center items-center w-full lg:h-[70vh]    
+      md:w-[40vw] md:h-screen">
+      <mat-card appearance="outlined" class="w-full mx-4 md:mx-48">
+        <mat-card-header class="w-full flex justify-center items-center">
+          <mat-card-title class="pb-12">
+            Login
+          </mat-card-title>
+        </mat-card-header>
+
+        <mat-card-content>
+          <form 
+            [formGroup]="form" 
+            (ngSubmit)="handleLoginSubmit()" 
+            class="flex flex-col"
+          >
+            <mat-form-field appearance="outline">
+              <mat-label>Informe seu nome</mat-label>
+              <input 
+                matInput 
+                placeholder="Como vou te chamar?"
+                formControlName="username"
+              >
+              <mat-icon matSuffix>person</mat-icon>
+              <mat-hint>Informe um nome entre 3 e 12 caracteres.</mat-hint>
+              @if (hasError('username')) {
+                <mat-error>{{getFieldError('username')}}</mat-error>
+              }
+            </mat-form-field>
+
+            <button 
+              matButton="filled" 
+              class="mt-8 mb-4 max-w-64 mx-auto" 
+              type="submit"
+              [disabled]="isFormInvalid()"
+            >
+              Acessar relatórios
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </aside>
+  </div>
+</main>

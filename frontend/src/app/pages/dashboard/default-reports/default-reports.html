@@ -1,0 +1,257 @@
+<div class="w-full h-full flex flex-col gap-8 px-4 py-8">
+  <div class="flex items-center justify-center gap-4 shadow-md border-2 rounded-md">
+    <h1 class="flex items-center mb-5 mr-4 text-xl font-medium">
+      Filtros:
+    </h1>
+
+    <form [formGroup]="filter" class="flex items-center justify-center gap-4">
+      <mat-form-field appearance="outline">
+        <mat-label>Data de início/fim da busca</mat-label>
+        <mat-date-range-input [rangePicker]="picker">
+          <input matStartDate formControlName="start" placeholder="Data início">
+          <input matEndDate formControlName="end" placeholder="Data fim">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker></mat-date-range-picker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Período da Busca</mat-label>
+        <mat-select formControlName="period">
+          @for (period of periods; track period) {
+            <mat-option [value]="period.value">
+              {{period.viewValue}}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Canal de atendimento</mat-label>
+        <mat-select formControlName="channel">
+          @for (channel of channels; track channel) {
+            <mat-option [value]="channel.value">
+              {{channel.viewValue}}
+            </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <button 
+        matButton="filled" 
+        type="submit" 
+        class="mb-5" 
+        (click)="searchByFilter()"
+        [disabled]="filter.invalid"
+      >Buscar</button>
+    </form>
+  </div>
+
+  @if (chartOptions && !isSearchEmpty) {
+    <div class="shadow-md border-2 rounded-md p-4">
+      @if (chartOptions) {
+        <apx-chart
+          [series]="chartOptions.series!"
+          [chart]="chartOptions.chart!"
+          [xaxis]="chartOptions.xaxis!"
+          [dataLabels]="chartOptions.dataLabels!"
+          [grid]="chartOptions.grid!"
+          [stroke]="chartOptions.stroke!"
+          [title]="chartOptions.title!"
+        ></apx-chart>
+      }
+    </div>
+
+    <div class="flex flex-col gap-16 xl:flex-row">
+      <div class="w-full">
+        <div>
+          <app-content-title 
+            title="Tabela 1: Informações do produto mais vendido do período" 
+          />
+          <table mat-table [dataSource]="products" class="shadow-md border-2 rounded-md">
+            <ng-container matColumnDef="productId">
+              <th mat-header-cell *matHeaderCellDef>
+                Id produto
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{element.productId}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="productName">
+              <th mat-header-cell *matHeaderCellDef>
+                Nome do produto
+              </th>
+              <td mat-cell *matCellDef="let element">
+                {{element.productName}}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="quantityOnSale">
+              <th mat-header-cell *matHeaderCellDef>
+                Qtd. ao concluir a venda
+              </th>
+              <td mat-cell *matCellDef="let element"> 
+                {{element.quantityOnSale}} 
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="createdAt">
+              <th mat-header-cell *matHeaderCellDef>
+                Momento da venda
+              </th>
+              <td mat-cell *matCellDef="let element"> 
+                {{element.createdAt | date: 'dd/MM/yyyy HH:mm:ss' : 'UTC'}} 
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="saleId">
+              <th mat-header-cell *matHeaderCellDef>
+                Id venda
+              </th>
+              <td mat-cell *matCellDef="let element"> 
+                <a (click)="loadSadeInfo(element.saleId)" class="underline text-blue-600 cursor-pointer">
+                  {{element.saleId}}
+                </a>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
+
+        <div class="shadow-md border-2 rounded-md mt-2 p-4 mb-4">
+          <span>O produto <span class="underline">{{products && products[0] && products[0].productName}}</span> vendeu no total <span class="underline">{{products && products[0] && products[0].productQuantityTotalSales}}</span> unidades.</span> 
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-8 w-full">
+        @if (sale) {
+          <div class="w-full flex flex-col shadow-md border-2 rounded-md px-4 pt-4">
+            <div class="flex flex-col lg:flex-row lg:gap-8">
+              <app-input-text 
+                class="w-full"
+                label="Id da venda"
+                [value]="sale.id"
+                [isReadonly]="true"
+              />
+              <app-input-text 
+                class="w-full"
+                label="Status da venda"
+                [value]="sale.saleStatusDesc"
+                [isReadonly]="true"
+              />
+              <app-input-text 
+                class="w-full"
+                label="Nome da loja"
+                [value]="sale.storeName"
+                [isReadonly]="true"
+              />
+              <app-input-text 
+                class="w-full"
+                label="Nome do cliente"
+                [value]="sale.customerName"
+                [isReadonly]="true"
+              />
+            </div>
+
+            <div class="flex flex-col lg:flex-row lg:gap-8">
+              <app-input-text 
+                class="w-full"
+                label="Total da compra"
+                [value]="sale.totalAmountItems | currency: 'BRL'"
+                [isReadonly]="true"
+              />
+              <app-input-text 
+                class="w-full"
+                label="Total da compra com desconto"
+                [value]="sale.totalAmount | currency: 'BRL'"
+                [isReadonly]="true"
+              />
+              <app-input-text 
+                class="w-full"
+                label="Total de desconto"
+                [value]="sale.totalDiscount | currency: 'BRL'"
+                [isReadonly]="true"
+              />
+              <app-input-text 
+                class="w-full"
+                label="Valor pago"
+                [value]="sale.valuePaid | currency: 'BRL'"
+                [isReadonly]="true"
+              />
+            </div>
+
+            <div class="flex flex-col lg:flex-row lg:gap-8">
+              <app-input-text 
+                class="w-full"
+                label="Motivo do desconto"
+                [value]="sale.discountReason"
+                [isReadonly]="true"
+              />
+              <app-input-text 
+                class="w-full"
+                label="Taxa de entrega"
+                [value]="sale.deliveryFee | currency: 'BRL'"
+                [isReadonly]="true"
+              />
+              <app-input-text 
+                class="w-full"
+                label="Tempo de entrega"
+                [value]="sale.deliverySeconds | minute"
+                [isReadonly]="true"
+              />
+              <app-input-text 
+                class="w-full"
+                label="Taxa de serviço"
+                [value]="sale.serviceTaxFee | currency: 'BRL'"
+                [isReadonly]="true"
+              />
+            </div>
+            
+            <div class="flex flex-col lg:flex-row lg:gap-8">
+              <app-input-text 
+                class="w-full"
+                label="Forma da compra"
+                [value]="sale.channelName"
+                [isReadonly]="true"
+              />
+              <app-input-text 
+                class="w-full"
+                label="Quantidade de pessoas"
+                [value]="sale.peopleQuantity"
+                [isReadonly]="true"
+              />
+              <app-input-text 
+                class="w-full"
+                label="Tempo de preparo"
+                [value]="sale.productionSeconds | minute"
+                [isReadonly]="true"
+              />
+            </div>
+          </div>
+        } @else {
+          <div class="flex justify-center items-center h-full">
+            <p class="flex justify-center items-center gap-2 font-light text-xl">
+              <mat-icon>arrow_back</mat-icon> Clique no <span class="underline">id da venda</span> para visualizar mais detalhes.
+            </p>
+          </div>
+        }
+      </div>
+    </div>
+  } @else {
+    @if (isSearchEmpty) {
+      <div class="flex justify-center items-center h-full text-4xl text-center">
+        <p>
+          A busca não retornou resultados.
+        </p>
+      </div>
+    } @else {
+      <div class="flex justify-center items-center h-full text-4xl">
+        Faça uma busca usando os filtros acima.
+      </div>
+    }
+  }
+</div>
+

@@ -1,0 +1,20 @@
+<table 
+  mat-table 
+  [dataSource]="dataSource" 
+  class="shadow-md border-2 rounded-md"
+  style="min-width: max-content !important;"
+>
+  @for (col of columns; track $index) {
+    <ng-container [matColumnDef]="col[0]">
+      <th mat-header-cell *matHeaderCellDef>
+        {{col[1]}}
+      </th>
+      <td mat-cell *matCellDef="let element">
+        {{element[col[0]]}}
+      </td>
+    </ng-container>
+  }
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
