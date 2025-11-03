@@ -1,11 +1,11 @@
 <div class="w-full h-full flex flex-col gap-8 px-4 py-8">
-  <div class="flex items-center justify-center gap-4 shadow-md border-2 rounded-md">
+  <div class="flex flex-col lg:flex-row items-center justify-center gap-4 shadow-md border-2 rounded-md">
     <h1 class="flex items-center mb-5 mr-4 text-xl font-medium">
       Filtros:
     </h1>
 
-    <form [formGroup]="filter" class="flex items-center justify-center gap-4">
-      <mat-form-field appearance="outline">
+    <form [formGroup]="filter" class="w-full flex flex-col lg:flex-row items-center justify-center gap-4">
+      <mat-form-field appearance="outline" class="w-full">
         <mat-label>Data de início/fim da busca</mat-label>
         <mat-date-range-input [rangePicker]="picker">
           <input matStartDate formControlName="start" placeholder="Data início">
@@ -15,7 +15,7 @@
         <mat-date-range-picker #picker></mat-date-range-picker>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="w-full">
         <mat-label>Período da Busca</mat-label>
         <mat-select formControlName="period">
           @for (period of periods; track period) {
@@ -26,7 +26,7 @@
         </mat-select>
       </mat-form-field>
 
-      <mat-form-field appearance="outline">
+      <mat-form-field appearance="outline" class="w-full">
         <mat-label>Canal de atendimento</mat-label>
         <mat-select formControlName="channel">
           @for (channel of channels; track channel) {
