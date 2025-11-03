@@ -11,14 +11,20 @@ export class ProductService {
 
   private client = inject(HttpClient);
   
-  public quantityProductSaleByPeriod(): Observable<Page<ProductSaleByPeriod>> {
+  public quantityProductSaleByPeriod(
+    channelName: string,
+    initialDateTime: string,
+    finalDateTime: string,
+    saleStatusDesc: string = "COMPLETED",
+  ): Observable<Page<ProductSaleByPeriod>> {
     return this.client.get<Page<ProductSaleByPeriod>>("http://localhost:8080/products/reports/quantityProductSaleByPeriod", {
       params: {
         page: 0,
-        size: 30,
-        channelName: "iFood",
-        initialDateTime: "2025-06-01T18:00:00",
-        finalDateTime: "2025-06-01T23:00:00"
+        size: 50,
+        channelName,
+        saleStatusDesc,
+        initialDateTime,
+        finalDateTime,
       }
     });
   }

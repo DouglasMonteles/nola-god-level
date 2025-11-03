@@ -6,6 +6,7 @@ services:
     container_name: challenge-backend
     ports:
       - "8080:8080"
+      - "5005:5005"
     env_file:
       - ./backend/.env
     networks:

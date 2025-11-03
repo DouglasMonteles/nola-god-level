@@ -1,6 +1,7 @@
 package br.com.doug.god_level_challenge.services;
 
 import br.com.doug.god_level_challenge.models.Sale;
+import br.com.doug.god_level_challenge.models.dtos.SaleBasicInfoDTO;
 import br.com.doug.god_level_challenge.repositories.SaleRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -17,4 +18,7 @@ public class SaleService {
         return saleRepository.findAll(pageable);
     }
 
+    public SaleBasicInfoDTO findBySaleId(Long id) {
+        return saleRepository.findBySaleId(id);
+    }
 }

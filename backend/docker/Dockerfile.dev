@@ -5,8 +5,10 @@ WORKDIR /backend
 COPY .mvn/wrapper/maven-wrapper.properties /backend/.mvn/wrapper/maven-wrapper.properties
 COPY mvnw .
 
-EXPOSE 8080 35729
+EXPOSE 8080 35729 5005
 
 RUN chmod +x mvnw
+
+ENV MAVEN_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
 
 CMD ["./mvnw", "spring-boot:run"]

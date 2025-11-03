@@ -10,18 +10,19 @@ import org.springframework.security.config.annotation.web.configurers.HeadersCon
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
-public class CorsConfig {
+public class SecurityConfig implements WebMvcConfigurer {
 
     public static final String[] ENDPOINTS = {
-            "/api/ants",
-            "/api/graph",
+            "/products",
+            "/sales"
     };
 
     public static final String[] ALLOWED_ORIGINS = {
-            "http://localhost:4200",
+            "*",
     };
 
     public static final String[] ALLOWED_HEADERS = {

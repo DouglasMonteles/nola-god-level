@@ -1,0 +1,8 @@
+<mat-form-field appearance="outline" class="w-full">
+  <mat-label>{{label()}}</mat-label>
+  <input 
+    matInput 
+    [value]="value() ?? 'Não informado'" 
+    [readonly]="isReadonly()"
+  >
+</mat-form-field>
