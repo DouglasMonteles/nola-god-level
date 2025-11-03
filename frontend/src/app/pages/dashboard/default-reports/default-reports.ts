@@ -25,6 +25,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 registerLocaleData(localePt);
 
@@ -64,6 +65,7 @@ export interface PeriodicElement {
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
 ],
   templateUrl: './default-reports.html',
   styleUrl: './default-reports.scss',
@@ -105,6 +107,9 @@ export class DefaultReports implements OnInit {
 
   isSearchEmpty: boolean = false;
 
+  isDashboardLoading: boolean = false;
+  isSaleInfoLoading: boolean = false;
+
   constructor(
     private _productService: ProductService,
     private _saleService: SaleService,
@@ -134,8 +139,10 @@ export class DefaultReports implements OnInit {
   }
 
   loadSadeInfo(saleId: number): void {
+    this.isSaleInfoLoading = true;
     this._saleService.findStoreById(saleId).subscribe({
       next: (data) => {
+        this.isSaleInfoLoading = false;
         this.sale = data;
       }
     });
@@ -159,10 +166,14 @@ export class DefaultReports implements OnInit {
       const startTimestamp = `${initialDate}T${startTime}`;
       const finalTimestamp = `${finalDate}T${finalTime}`;
 
+      this.isDashboardLoading = true;
+
       this._productService.quantityProductSaleByPeriod(
         channel, startTimestamp, finalTimestamp
       ).subscribe({
           next: (data) => {
+            this.isDashboardLoading = false;
+
             if (data.content.length == 0) {
               this.isSearchEmpty = true;
               return;

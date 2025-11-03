@@ -1,5 +1,5 @@
 <div class="w-full h-full flex flex-col gap-8 px-4 py-8">
-  <div class="flex flex-col lg:flex-row items-center justify-center gap-4 shadow-md border-2 rounded-md">
+  <div class="flex flex-col lg:flex-row px-4 pt-4 items-center justify-center gap-4 shadow-md border-2 rounded-md">
     <h1 class="flex items-center mb-5 mr-4 text-xl font-medium">
       Filtros:
     </h1>
@@ -40,7 +40,7 @@
       <button 
         matButton="filled" 
         type="submit" 
-        class="mb-5" 
+        class="mb-5 w-56" 
         (click)="searchByFilter()"
         [disabled]="filter.invalid"
       >Buscar</button>
@@ -232,10 +232,16 @@
             </div>
           </div>
         } @else {
-          <div class="flex justify-center items-center h-full">
-            <p class="flex justify-center items-center gap-2 font-light text-xl">
-              <mat-icon>arrow_back</mat-icon> Clique no <span class="underline">id da venda</span> para visualizar mais detalhes.
-            </p>
+          <div class="flex h-full justify-center">
+            @if (isSaleInfoLoading) {
+              <p class="flex justify-center items-center gap-2 font-light text-xl mt-8 mb-auto">
+                <mat-spinner />
+              </p>
+            } @else {
+              <p class="flex justify-center items-center gap-2 font-light text-xl mt-8 mb-auto">
+                <mat-icon>arrow_back</mat-icon> Clique no <span class="underline">id da venda</span> para visualizar mais detalhes.
+              </p>
+            }
           </div>
         }
       </div>
@@ -246,6 +252,10 @@
         <p>
           A busca não retornou resultados.
         </p>
+      </div>
+    } @else if (isDashboardLoading) {
+      <div class="flex justify-center items-center h-full text-4xl text-center">
+        <mat-spinner />
       </div>
     } @else {
       <div class="flex justify-center items-center h-full text-4xl">
