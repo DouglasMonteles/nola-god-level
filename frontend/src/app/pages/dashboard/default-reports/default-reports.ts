@@ -21,9 +21,9 @@ import { MinutePipe } from '../../../pipes/minute-pipe';
 import { MatIconModule } from '@angular/material/icon';
 import { ContentTitle } from "../../../components/content-title/content-title";
 import { MatSelectModule } from '@angular/material/select';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { provideNativeDateAdapter } from '@angular/material/core';
+import { MAT_DATE_LOCALE, provideNativeDateAdapter } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 
 registerLocaleData(localePt);
@@ -69,16 +69,17 @@ export interface PeriodicElement {
   styleUrl: './default-reports.scss',
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-BR' },
+    { provide: MAT_DATE_LOCALE, useValue: "pt-BR" },
     provideNativeDateAdapter()
   ]
 })
 export class DefaultReports implements OnInit {
 
-  public chartOptions!: Partial<ChartOptions>;
+  public chartOptions: Partial<ChartOptions> | null = null;
 
   products: ProductSaleByPeriod[] = [];
 
-  sale!: SaleBasicInfo;
+  sale: SaleBasicInfo | null = null;
 
   selectedSaleId: number | null = null;
 
@@ -92,11 +93,17 @@ export class DefaultReports implements OnInit {
   ];
 
   channels: any[] = [
-    {value: 'iFood', viewValue: 'iFood'},
-    {value: 'Presencial', viewValue: 'Presencial'},
+    {value: 'iFood', viewValue: 'Canal iFood'},
+    {value: 'Presencial', viewValue: 'Canal Presencial'},
+    {value: 'Rappi', viewValue: 'Canal Rappi'},
+    {value: 'Uber Eats', viewValue: 'Canal Uber Eats'},
+    {value: 'WhatsApp', viewValue: 'Canal WhatsApp'},
+    {value: 'App Próprio', viewValue: 'Canal App Próprio'},
   ];
 
   filter: FormGroup;
+
+  isSearchEmpty: boolean = false;
 
   constructor(
     private _productService: ProductService,
@@ -136,7 +143,8 @@ export class DefaultReports implements OnInit {
 
   searchByFilter(): void {
     if (this.filter.valid) {
-      console.log(this.filter.value)
+      this.sale = null;
+
       const {
         start,
         end,
@@ -156,10 +164,14 @@ export class DefaultReports implements OnInit {
       ).subscribe({
           next: (data) => {
             if (data.content.length == 0) {
+              this.isSearchEmpty = true;
               return;
             }
-            
+
+            this.isSearchEmpty = false;
+
             const date = this.formattedCreatedAt(data.content[0].createdAt, true);
+            
             this.products = data.content;
             this.chartOptions = {
               series: [

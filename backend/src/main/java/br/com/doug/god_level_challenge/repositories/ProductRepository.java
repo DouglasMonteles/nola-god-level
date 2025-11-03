@@ -21,7 +21,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
                     t.product_id,
                     t.product_name,
                     t.product_quantity_total_sales,
-                    prod_sales.id as sale_id,
+                    sl.id as sale_id,
                     prod_sales.quantity as quantity_on_sale,
                     sl.created_at\s
                 from product_sales prod_sales\s
