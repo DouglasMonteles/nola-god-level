@@ -1,79 +1,67 @@
-# 🏆 God Level Coder Challenge
+# Projeto
 
-## O Problema
+Projeto desenvolvido com as tecnologias:
 
-Donos de restaurantes gerenciam operações complexas através de múltiplos canais (presencial, iFood, Rappi, app próprio). Eles têm dados de **vendas, produtos, clientes e operações**, mas não conseguem extrair insights personalizados para tomar decisões de negócio.
+- backend: Springboot;
+- frontend: Angular;
+- banco de dados: PostgreSQL (relacional);
 
-Ferramentas como Power BI são genéricas demais. Dashboards fixos não respondem perguntas específicas. **Como empoderar donos de restaurantes a explorarem seus próprios dados?**
+Linguagens de programação utilizadas:
 
-## Seu Desafio
+- backend: Java;
+- frontend: Typescript;
+- banco de dados: SQL;
 
-Construa uma solução que permita donos de restaurantes **criarem suas próprias análises** sobre seus dados operacionais. Pense: "Power BI para restaurantes" ou "Metabase específico para food service".
+# Como utilizar a aplicação
 
-### O que esperamos
+Existem algumas formas de configurar e executar esse projeto, são elas:
 
-Uma plataforma onde um dono de restaurante possa:
-- Visualizar métricas relevantes (faturamento, produtos mais vendidos, horários de pico)
-- Criar dashboards personalizados sem escrever código
-- Comparar períodos e identificar tendências
-- Extrair valor de dados complexos de forma intuitiva
+## Acessando diretamente a url da aplicação
 
-### O que você recebe
+O deploy da aplicação foi realizado e ela está disponível no endereço:
 
-- Script para geração de **500.000 vendas** de 6 meses (50 lojas, múltiplos canais)
-- Schema PostgreSQL com dados realistas de operação
-- Liberdade total de tecnologias e arquitetura
-- Liberdade total no uso de AI e ferramentas de geração de código
+- <a href="https://nola-god-level.vercel.app">https://nola-god-level.vercel.app</a>
 
-### O que você entrega
+Pelo fato dela está sendo executa em um ambiente gratuito, a primeira requisição de busca pode levar alguns segundos, já que após 30 minutos de inatividade, os containers entram em suspensão.
 
-1. Uma solução funcionando (deployed ou local) - com frontend e backend adequados ao banco fornecido
-2. Documentação de decisões arquiteturais
-3. Demo em vídeo (5-10 min) explicando sua abordagem - mostrando a solução funcional e deployada / rodando na sua máquina, apresentando-a no nível de detalhes que julgar relevante
-4. Código bem escrito e testável
+### Deploy
 
-## 📚 Documentação
+A aplicação está utilizando serviços gratuitos em três ambientes diferentes, são elas:
 
-| Documento | Descrição |
-|-----------|-----------|
-| [PROBLEMA.md](./PROBLEMA.md) | Contexto detalhado, persona Maria, dores do usuário |
-| [DADOS.md](./DADOS.md) | Schema completo, padrões, volume de dados |
-| [AVALIACAO.md](./AVALIACAO.md) | Como avaliaremos sua solução |
-| [FAQ.md](./FAQ.md) | Perguntas frequentes |
-| [QUICKSTART.md](./QUICKSTART.md) | Tutorial rápido para começar o desafio |
+- Versel: Hospeda o frontend da aplicação (html, css e javascript);
+- Render: Hospeda o backend da aplicação (java);
+- Railway: Hospeda o banco de dados da aplicação (PostgreSQL);
 
-## Avaliação
+Em todos, está habilitado o CI/CD, que tratar de atualizar o ambiente de produção aqui que o um novo recuso for aprovado na branch principal.
 
-**Não** estamos avaliando se você seguiu instruções específicas.  
-**Sim** estamos avaliando:
-- Pensamento arquitetural e decisões técnicas
-- Qualidade da solução para o problema do usuário
-- Performance e escala
-- UX e usabilidade
-- Metodologia de trabalho e entrega
+## Utilizando o docker
+
+Podemos iniciar a aplicação utilizando o docker, que está dividido em containers de desenvolvimento e containers de produção. A principal diferença está no *Live Reload*, presente somente no desenvolvimento.
+
+### Ambiente de desenvolvimento
+
+Para subir o ambiente de desenvolvimento, siga os passos:
+
+- Crie um `.env`  na raiz do projeto com o conteúdo do `.dev.example.env`;
+- Execute o comando: `docker compose --profile=initialization -f docker-compose-dev.yml up --build`;
+
+Utilize a flag `--profile=initialization` somente na primeira execução, pois ela inicia o script que popula o banco de dados.
+
+### Ambiente de produção
+
+Esse ambiente também serve para quem só precisa testar as funcionalidades da aplicação de forma local. Para isso, siga os passos:
+
+- Crie um `.env`  na raiz do projeto com o conteúdo do `.prod.example.env`;
+- Execute o comando: `docker compose --profile=initialization -f docker-compose-prod.yml up --build`;
+
+Utilize a flag `--profile=initialization` somente na primeira execução, pois ela inicia o script que popula o banco de dados.
+
+## Acessar localmente a aplicação
+
+Após os containers iniciarem, a página web estará disponível. 
+
+- Acesse a página web em: <a href="http://localhost:4200">http://localhost:4200</a>
+- O backend pode ser acessado em: <a href="https://nola-god-level-893w.onrender.com">https://nola-god-level-893w.onrender.com</a>
 
 
-## Prazo
 
-Até 03/11/2025 às 23:59.
-
-## Submissão
-
-Mande um email para gsilvestre@arcca.io
-
-Com:
-- Link do repositório (público ou nos dê acesso)
-- Link do vídeo demo (5-10 min)
-- Link do deploy (opcional mas valorizado)
-- Documento de decisões arquiteturais
-
-## Suporte
-- 💬 **Discord**: https://discord.gg/pRwmm64Vej
-- 📧 **Email**: gsilvestre@arcca.io
-- 📧 **Telefone**: (11) 93016 - 3509
-
----
-
-**Não queremos que você adivinhe o que queremos. Queremos ver como VOCÊ resolveria este problema.**
-
-_Nola • 2025_
