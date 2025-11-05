@@ -87,19 +87,11 @@ def setup_base_data(conn):
     print("Setting up base data...")
     cursor = conn.cursor()
     
-    # Brands
-    brands = ['Challenge Foods']
-    for brd in brands:
-        cursor.execute(
-            "INSERT INTO brands (id, name) VALUES (%s, %s) RETURNING id",
-            (BRAND_ID, brd)
-        )
-    
     # Sub-brands
     sub_brands = ['Challenge Burger', 'Challenge Pizza', 'Challenge Sushi']
     sub_brand_ids = []
 
-    cursor.execute("INSERT INTO brands (name) VALUES ('Nola God Level Brand')");
+    cursor.execute(f"INSERT INTO brands (id, name) VALUES ({BRAND_ID}, 'Nola God Level Brand')");
     for sb in sub_brands:
         cursor.execute(
             "INSERT INTO sub_brands (brand_id, name) VALUES (%s, %s) RETURNING id",
